@@ -124,6 +124,7 @@ Buttons
 	background: var(--primaryColor);
 	color: var(--mainWhite);
 	border-color: var(--primaryColor);
+	border-radius: 10px;
 }
 
 .btn-primary:hover {
@@ -292,6 +293,7 @@ Hero
 	padding: 0.8rem 1.5rem;
 	background: var(--primaryDarkColor);
 	border-color: var(--primaryDarkColor);
+	border-radius: 10px;
 }
 
 .btn-hero:hover {

@@ -2,12 +2,13 @@
 	import navLinks from '../../constants/links';
 	import { Link } from 'svelte-routing';
 	import globalStore from '../../stores/globalStore';
+	import { fly, fade } from 'svelte/transition';
 
 	let closeSidebar = globalStore.toggleItem;
 </script>
 
-<div class="sidebar-container">
-	<div class="sidebar">
+<div class="sidebar-container" transition:fly={{ x: -1000 }}>
+	<div class="sidebar" transition:fade={{ delay: 400 }}>
 		<!-- header -->
 		<div class="sidebar-header">
 			<button class="btn-close" on:click={() => closeSidebar('sidebar', false)}>

@@ -1,9 +1,13 @@
 <script>
-	import { Link } from 'svelte-routing';
+	import SmallNavbar from './SmallNavbar.svelte';
+	import BigNavbar from './BigNavbar.svelte';
+
+	let screenWidth;
 </script>
 
-<nav>
-	<Link to="/">Home</Link>
-	<Link to="/about">About</Link>
-	<Link to="/products">Products</Link>
-</nav>
+<svelte:window bind:innerWidth={screenWidth} />
+{#if screenWidth > 992}
+	<BigNavbar />
+{:else}
+	<SmallNavbar />
+{/if}

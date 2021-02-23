@@ -8,7 +8,7 @@ Ps:. I didn't make the design, so it's not pretty (not by my standards at least)
 
 ### What I learned with this project:
 
-- How to properly use <Svelte: something /> properties
+- How to properly use ```<Svelte: something />``` properties
 - How to use derived stores
 - How to set ES6 [dynamic properties](https://www.samanthaming.com/tidbits/37-dynamic-property-name-with-es6/#the-3-ways-to-access-the-object-value)
 - How to make better reusable functions:

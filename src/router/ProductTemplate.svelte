@@ -1,10 +1,13 @@
 <script>
+	import products from '../stores/defaultProducts';
+	import globalStore from '../stores/globalStore';
+	import Loading from '../components/Loading.svelte';
+	import { Link } from 'svelte-routing';
+
 	export let id;
 	export let location;
 
-	import products from '../stores/defaultProducts';
-	import Loading from '../components/Loading.svelte';
-	import { Link } from 'svelte-routing';
+	let openCart = globalStore.toggleItem;
 
 	$: product = $products.find((item) => item.id === parseInt(id));
 </script>
@@ -29,7 +32,7 @@
 				<p>{product.description}</p>
 				<button
 					class="btn btn-primary btn-block"
-					on:click={() => console.log('add to cart')}>add to cart</button
+					on:click={() => openCart('cart', true)}>add to cart</button
 				>
 			</article>
 		</div>

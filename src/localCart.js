@@ -11,7 +11,7 @@ export default [
     title: "Gillette Razor",
     price: 9.99,
     image: "/assets/product-images/product-2.png",
-    amount: 1
+    amount: 5
   },
   {
     id: 3,

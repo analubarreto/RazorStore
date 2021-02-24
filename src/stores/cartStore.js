@@ -39,16 +39,30 @@ export const increaseAmount = id => {
     return toggleAmount(id, storeValue, 'inc')
   })
 }
-export const descreaseAmount = id => {
+export const descreaseAmount = (id, amount) => {
   cartStore.update(storeValue => {
-    let item = storeValue.find(item => item.id === id);
+    // let item = storeValue.find(item => item.id === id);
     let cart;
-    if (item.amount === 1) {
+    if (amount === 1) {
       cart = remove(id, storeValue)
     } else {
       cart = toggleAmount(id, storeValue, 'dec')
     }
     return [...cart]
+  })
+}
+export const addToCart = product => {
+  cartStore.update(storeValue => {
+    const { id, image, title, price } = product;
+    let item = storeValue.find(item => item.id === id);
+    let cart;
+    if (item) {
+      cart = toggleAmount(id, storeValue, 'inc')
+    } else {
+      let newItem = { id, image, title, price, amount: 1 }
+      cart = [...storeValue, newItem]
+    }
+    return cart;
   })
 }
 // local storage

@@ -29,7 +29,9 @@
 			<i class="fas fa-chevron-up" />
 		</button>
 		<p class="item-amount">{amount}</p>
-		<button class="cart-btn amount-btn" on:click={() => descreaseAmount(id)}
+		<button
+			class="cart-btn amount-btn"
+			on:click={() => descreaseAmount(id, amount)}
 			><i class="fas fa-chevron-down" /></button
 		>
 	</div>

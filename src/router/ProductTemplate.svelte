@@ -1,6 +1,7 @@
 <script>
 	import products from '../stores/defaultProducts';
 	import globalStore from '../stores/globalStore';
+	import { addToCart } from '../stores/cartStore';
 	import Loading from '../components/Loading.svelte';
 	import { Link } from 'svelte-routing';
 
@@ -32,7 +33,10 @@
 				<p>{product.description}</p>
 				<button
 					class="btn btn-primary btn-block"
-					on:click={() => openCart('cart', true)}>add to cart</button
+					on:click={() => {
+						addToCart(product);
+						openCart('cart', true);
+					}}>add to cart</button
 				>
 			</article>
 		</div>

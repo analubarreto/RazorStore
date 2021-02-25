@@ -3,9 +3,9 @@
 	import { fly, fade, blur } from 'svelte/transition';
 	import { Link } from 'svelte-routing';
 	import ItemList from './ItemList.svelte';
+	import user from '../../stores/user';
 
 	// itemlist
-	let user = false;
 	let closeCart = globalStore.toggleItem;
 </script>
 
@@ -25,7 +25,7 @@
 			<!-- End cart items -->
 			<!-- Cart footer -->
 			<div class="cart-footer">
-				{#if user}
+				{#if $user.jwt}
 					<Link
 						to="/checkout"
 						class="btn btn-primary btn-block"

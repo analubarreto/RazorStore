@@ -11,7 +11,7 @@ async function registerUser({email, password, username}) {
     console.log(err);
   })
   if (response) {
-    // setup user
+    // setupUser
   }
   return response;
 }

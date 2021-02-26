@@ -1,17 +1,38 @@
 <script>
+	// Imports
 	import { Link } from 'svelte-routing';
+	import loginUser from '../strapi/loginUser';
+	import registerUser from '../strapi/registerUser';
 
+	// Variables
 	let email = '';
 	let password = '';
 	let username = 'default username';
 	let isMemeber = true;
 
-	$: isEmpty = !email || !password || !username || !isMemeber;
+	$: isEmpty = !email || !password || !username;
 
+	// functions
 	function toggleMember() {
-		isMemeber = false;
+		isMemeber = !isMemeber;
+		if (!isMemeber) {
+			username = '';
+		} else {
+			username = 'default username';
+		}
 	}
-	async function handleSubmit() {}
+	async function handleSubmit() {
+		let user;
+		if (isMemeber) {
+			loginUser();
+		} else {
+			user = await registerUser({ email, password, username });
+		}
+		console.log(user);
+		if (user) {
+		} else {
+		}
+	}
 </script>
 
 <section class="form">
@@ -22,7 +43,7 @@
 			Register
 		{/if}
 	</h2>
-	<form class="login-form" on:submit|preventDefault={() => handleSubmit}>
+	<form class="login-form" on:submit|preventDefault={handleSubmit}>
 		<!-- single input -->
 		<div class="form-control">
 			<label for="email">email</label>

@@ -8,10 +8,11 @@ Ps:. I didn't make the design, so it's not pretty (not by my standards at least)
 
 ### What I learned with this project:
 
-- How to properly use ```<Svelte: something />``` properties
+- How to properly use `<Svelte: something />` properties
 - How to use derived stores
 - How to set ES6 [dynamic properties](https://www.samanthaming.com/tidbits/37-dynamic-property-name-with-es6/#the-3-ways-to-access-the-object-value)
 - How to make better reusable functions:
+
 ```
   toggleItem: (item, value) => {
     sidebar.update(storeValues => {
@@ -19,7 +20,9 @@ Ps:. I didn't make the design, so it's not pretty (not by my standards at least)
     })
   }
 ```
-And I'm not finished yet to complete this list :)
+
+- How to implement Stripe payment method to Strapi
+- How to properly use Svelte animations
 
 ### How to run
 

@@ -2,11 +2,11 @@
 	import { onMount } from 'svelte';
 	import { navigate, Link } from 'svelte-routing';
 	import user from '../stores/user';
-	import { storeTotal } from '../stores/cartStore';
+	import cart, { storeTotal } from '../stores/cartStore';
 	import stripeKey from '../constants/stripeKey';
+	import submitOrder from '../strapi/submitOrder';
 
-	let addressLineOne = '';
-	let addressLineTwo = '';
+	let address;
 
 	// Stripe vars
 	let cardElement;
@@ -16,7 +16,7 @@
 	let elements;
 
 	// is Empty
-	$: isEmpty = !addressLineOne || !addressLineTwo;
+	$: isEmpty = !address;
 	onMount(() => {
 		if (!$user.jwt) {
 			navigate('/');
@@ -38,15 +38,28 @@
 	async function handleSubmit() {
 		let response = await stripe.createToken(card).catch((err) => {
 			console.log(err);
-			const { token } = response;
-			if (token) {
-				console.log(response);
-				// token.id
-				// submit the order
-			} else {
-				console.log(response);
-			}
 		});
+		const { token } = response;
+		let order = setOrder(token);
+		console.log(order);
+	}
+
+	async function setOrder(token) {
+		if (token) {
+			const { id } = token;
+			let order = await submitOrder({
+				address,
+				total: $storeTotal,
+				items: $cart,
+				stripeTokenId: id,
+				userToken: $user.jwt,
+			});
+			return order;
+			// token.id
+			// submit the order
+		} else {
+		}
+		return order;
 	}
 </script>
 
@@ -57,10 +70,8 @@
 			<h3>order total: ${$storeTotal}</h3>
 			<!-- inputs -->
 			<div class="form-control">
-				<label for="address-line-one">Address Line 1:</label>
-				<input type="text" id="address-line-one" bind:value={addressLineOne} />
-				<label for="address-line-two">Address Line 2:</label>
-				<input type="text" id="address-line-two" bind:value={addressLineTwo} />
+				<label for="address-line-one">Address:</label>
+				<input type="text" id="address-line-one" bind:value={address} />
 			</div>
 			<!-- inputs -->
 			<!-- error message -->
@@ -88,9 +99,9 @@
 			<!-- end stripe stuff -->
 			<!-- submit button -->
 			<button
+				type="submit"
 				class="btn btn-block btn-primary"
 				disabled={isEmpty}
-				on:click={handleSubmit}
 				class:disabled={isEmpty}>Submit</button
 			>
 			<!-- end submit button -->

@@ -5,6 +5,7 @@
 	import cart, { storeTotal } from '../stores/cartStore';
 	import stripeKey from '../constants/stripeKey';
 	import submitOrder from '../strapi/submitOrder';
+	import globalStore from '../stores/globalStore';
 
 	let address;
 
@@ -16,7 +17,7 @@
 	let elements;
 
 	// is Empty
-	$: isEmpty = !address;
+	$: isEmpty = !address || $globalStore.alert;
 	onMount(() => {
 		if (!$user.jwt) {
 			navigate('/');
@@ -36,6 +37,7 @@
 		}
 	});
 	async function handleSubmit() {
+		globalStore.toggleItem('alert', false, 'Submitting order... please wait!');
 		let response = await stripe.createToken(card).catch((err) => {
 			console.log(err);
 		});
@@ -54,7 +56,20 @@
 				stripeTokenId: id,
 				userToken: $user.jwt,
 			});
-			return order;
+			if (order) {
+				globalStore.toggleItem('alert', true, 'your order is complete!');
+				cart.set([]);
+				localStorage.setItem('cart', JSON.stringify([]));
+				navigate('/');
+				return order;
+			} else {
+				globalStore.toggleItem(
+					'alert',
+					true,
+					'there was an error with your order, please review your data',
+					true
+				);
+			}
 			// token.id
 			// submit the order
 		} else {

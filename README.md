@@ -25,7 +25,9 @@ Ps:. I didn't make the design, so it's not pretty (not by my standards at least)
 - How to properly use Svelte animations
 
 ### How to run
-
+!!!
+WARNING: for now most functionalities won't work because I don't have the strapi CMS in a internet Server and for security sake (even if this is a pet project) I'm not going to put the CMS code as open source.
+!!!
 1. Clone repo
 
 ```

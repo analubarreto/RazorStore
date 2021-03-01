@@ -26,12 +26,6 @@ Ps:. I didn't make the design, just toggled around a bit.
 
 ### How to run
 
-!!!
-WARNINGS: <br>
-1. For now most functionalities won't work because I don't have the strapi CMS in a internet Server and for security sake (even if this is a pet project) I'm not going to put the CMS code as open source.
-2. If you want to test here the payment you'll need a stripe account to get your own API key. After getting one you should add a file named stripeKey.js in the constants folder and add your key to it as a default export.
-!!!
-
 1. Clone repo
 
 ```
@@ -58,3 +52,8 @@ npm run dev
 ```
 
 5. Open browser in locahost:5000/
+
+## WARNINGS:
+1. For now most functionalities won't work because I don't have the strapi CMS in a internet Server and for security sake (even if this is a pet project) I'm not going to put the CMS code as open source.
+2. If you want to test here the payment you'll need a stripe account to get your own API key. After getting one you should add a file named stripeKey.js in the constants folder and add your key to it as a default export.
+

@@ -4,7 +4,7 @@ This is an app made with [Svelte Tutorial and Projects Course](https://www.udemy
 
 Why am I doing another Svelte Course? To get the itty details about the framework I seem to have missed in the first course without having too much trouble.
 
-Ps:. I didn't make the design, so it's not pretty (not by my standards at least), but it works quite nicely.
+Ps:. I didn't make the design, just toggled around a bit.
 
 ### What I learned with this project:
 
@@ -25,9 +25,11 @@ Ps:. I didn't make the design, so it's not pretty (not by my standards at least)
 - How to properly use Svelte animations
 
 ### How to run
+
 !!!
 WARNING: for now most functionalities won't work because I don't have the strapi CMS in a internet Server and for security sake (even if this is a pet project) I'm not going to put the CMS code as open source.
 !!!
+
 1. Clone repo
 
 ```

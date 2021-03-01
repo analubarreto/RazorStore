@@ -18,20 +18,22 @@
 	// is Empty
 	$: isEmpty = !addressLineOne || !addressLineTwo;
 	onMount(() => {
-		// if (!$user.jwt) {
-		// 	navigate('/');
-		// }
-		stripe = Stripe(stripeKey);
-		elements = stripe.elements();
-		card = elements.create('card');
-		card.mount(cardElement);
-		card.addEventListener('change', (e) => {
-			if (e.error) {
-				cardErrors.textContent = e.error.message;
-			} else {
-				cardErrors.textContent = '';
-			}
-		});
+		if (!$user.jwt) {
+			navigate('/');
+		}
+		if ($storeTotal > 0) {
+			stripe = Stripe(stripeKey);
+			elements = stripe.elements();
+			card = elements.create('card');
+			card.mount(cardElement);
+			card.addEventListener('change', (e) => {
+				if (e.error) {
+					cardErrors.textContent = e.error.message;
+				} else {
+					cardErrors.textContent = '';
+				}
+			});
+		}
 	});
 	async function handleSubmit() {
 		let response = await stripe.createToken(card).catch((err) => {

@@ -1,6 +1,6 @@
 import { writable } from 'svelte/store';
 
-const userStore = writable(getStorageUser);
+const userStore = writable(getStorageUser());
 
 function getStorageUser() {
   return localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')) : { username: null, jwt: null }

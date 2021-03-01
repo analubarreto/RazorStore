@@ -3,6 +3,7 @@
 	import { navigate, Link } from 'svelte-routing';
 	import user from '../stores/user';
 	import { storeTotal } from '../stores/cartStore';
+	import stripeKey from '../constants/stripeKey';
 
 	let addressLineOne = '';
 	let addressLineTwo = '';
@@ -17,13 +18,33 @@
 	// is Empty
 	$: isEmpty = !addressLineOne || !addressLineTwo;
 	onMount(() => {
-		if (!$user.jwt) {
-			navigate('/');
-		}
+		// if (!$user.jwt) {
+		// 	navigate('/');
+		// }
+		stripe = Stripe(stripeKey);
+		elements = stripe.elements();
+		card = elements.create('card');
+		card.mount(cardElement);
+		card.addEventListener('change', (e) => {
+			if (e.error) {
+				cardErrors.textContent = e.error.message;
+			} else {
+				cardErrors.textContent = '';
+			}
+		});
 	});
-
-	function handleSubmit() {
-		console.log('form submited');
+	async function handleSubmit() {
+		let response = await stripe.createToken(card).catch((err) => {
+			console.log(err);
+			const { token } = response;
+			if (token) {
+				console.log(response);
+				// token.id
+				// submit the order
+			} else {
+				console.log(response);
+			}
+		});
 	}
 </script>
 
@@ -40,6 +61,11 @@
 				<input type="text" id="address-line-two" bind:value={addressLineTwo} />
 			</div>
 			<!-- inputs -->
+			<!-- error message -->
+			{#if isEmpty}
+				<p class="form-empty">Please fill out address fields</p>
+			{/if}
+			<!-- end error message -->
 			<!-- stripe stuff -->
 			<div class="stripe-input">
 				<!-- info -->
@@ -51,16 +77,13 @@
 					enter any 3 digits for the CVC
 				</p>
 				<div id="card-element" bind:this={cardElement}>
-					<!-- stripe -->
+					<!-- stripe stuff -->
 				</div>
-				<div id="card-errors" bind:this={cardErrors} role="alert">...</div>
+				<div id="card-errors" bind:this={cardErrors} role="alert">
+					{cardErrors}
+				</div>
 			</div>
 			<!-- end stripe stuff -->
-			<!-- error message -->
-			{#if isEmpty}
-				<p class="form-empty">Please fill out address fields</p>
-			{/if}
-			<!-- end error message -->
 			<!-- submit button -->
 			<button
 				class="btn btn-block btn-primary"

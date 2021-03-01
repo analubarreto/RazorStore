@@ -1,0 +1,3 @@
+const stripeKey = 'pk_test_51IQFLGHrDQJQ48USm0NoCmsqChyfvVZjw2Z0qsiYFzAswN7ZBT4i1zTgSNV63R36McafsEc2WiYZVuU0dPtSqTxO00ZYPV3i6l'
+
+export default stripeKey

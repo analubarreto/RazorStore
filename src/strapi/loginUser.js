@@ -1,6 +1,6 @@
-
 import axios from 'axios';
 import url from './URL';
+import setupUser from './setupUser';
 
 async function loginUser({email, password}) {
   const response = await axios.post(`${url}/auth/local`, {
@@ -10,7 +10,7 @@ async function loginUser({email, password}) {
     console.log(err);
   })
   if (response) {
-    // setupUser
+    setupUser(response);
   }
   return response;
 }

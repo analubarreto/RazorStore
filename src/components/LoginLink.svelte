@@ -1,5 +1,5 @@
 <script>
-	import user from '../stores/user.js';
+	import user, { logoutUser } from '../stores/user.js';
 	import { Link } from 'svelte-routing';
 	import globalStore from '../stores/globalStore';
 
@@ -11,6 +11,7 @@
 		to="/"
 		class="logout-btn"
 		on:click={() => {
+			logoutUser();
 			globalStore.toggleItem('sidebar', false);
 		}}>Logout</Link
 	>

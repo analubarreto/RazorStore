@@ -3,6 +3,8 @@
 	import { Link } from 'svelte-routing';
 	import loginUser from '../strapi/loginUser';
 	import registerUser from '../strapi/registerUser';
+	import { navigate } from 'svelte-routing';
+	import globalStore from '../stores/globalStore';
 
 	// Variables
 	let email = '';
@@ -10,7 +12,7 @@
 	let username = 'default username';
 	let isMemeber = true;
 
-	$: isEmpty = !email || !password || !username;
+	$: isEmpty = !email || !password || !username || $globalStore.alert;
 
 	// functions
 	function toggleMember() {
@@ -22,16 +24,25 @@
 		}
 	}
 	async function handleSubmit() {
+		// add alert
+		globalStore.toggleItem('alert', true, 'loading data... please wait');
 		let user;
 		if (isMemeber) {
 			user = await loginUser({ email, password });
 		} else {
 			user = await registerUser({ email, password, username });
 		}
-		console.log(user);
 		if (user) {
-		} else {
+			navigate('/products');
+			globalStore.toggleItem('alert', true, 'Welcome to Razors Store');
+			return;
 		}
+		globalStore.toggleItem(
+			'alert',
+			true,
+			'Login failed, please try again.',
+			true
+		);
 	}
 </script>
 

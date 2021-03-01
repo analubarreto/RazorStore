@@ -1,17 +1,25 @@
 import { writable } from 'svelte/store';
 
-const sidebar = writable({
+const store = writable({
   sidebar: false,
   cart: false,
-  alert: false
+  alert: false,
+  alertText: 'default alert',
+  alertDanger: false
 });
 
 const globalStore = {
-  subscribe: sidebar.subscribe,
-  toggleItem: (item, value) => {
-    sidebar.update(storeValues => {
-      return {...storeValues, [item]:value}
-    })
+  subscribe: store.subscribe,
+  toggleItem: (item, value, alertText = 'default', alertDanger = false) => {
+    if (item === 'alert') {
+      store.update(storeValures => {
+        return {...storeValures, [item]:value, alertText, alertDanger}
+      })
+    } else {
+      store.update(storeValues => {
+        return {...storeValues, [item]:value}
+      })
+    }
   }
 }
 

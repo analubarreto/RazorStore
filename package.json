@@ -19,6 +19,7 @@
     "svelte": "^3.0.0"
   },
   "dependencies": {
+    "@stripe/stripe-js": "^1.13.1",
     "sirv-cli": "^1.0.0",
     "svelte-routing": "^1.5.0"
   }
